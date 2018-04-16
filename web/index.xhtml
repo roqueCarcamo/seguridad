@@ -7,8 +7,8 @@
         <title>Registrar usuario</title>
     </h:head>
     <h:body>
-        Registrar usuario
-        <h:form>
+        <h1> Registrar usuario </h1>
+        <h:form id="registrarUsuario">
             <div class="col-md-2">
                 <p:outputLabel value="Nombres"/>
                 <p:inputText value="#{registrarUsuarioBean.usuario.nombres}"/>
@@ -25,8 +25,8 @@
                 <p:outputLabel value="Password"/>
                 <p:password id="nonFeedback" value="#{registrarUsuarioBean.usuario.password}"/>
             </div>
-
-            <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" />
+            <br></br>
+            <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario" />
         </h:form>
     </h:body>
 </html>

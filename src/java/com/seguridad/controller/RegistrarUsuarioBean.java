@@ -43,6 +43,7 @@ public class RegistrarUsuarioBean implements Serializable {
         System.out.println("Usuario: " + usuario.toString());
         try {
             usuarioDao.insert(usuario);
+            usuario = new Usuario();
         } catch (Exception ex) {
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
