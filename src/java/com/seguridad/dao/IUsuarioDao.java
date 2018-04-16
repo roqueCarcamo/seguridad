@@ -10,6 +10,8 @@ import java.util.List;
 public interface IUsuarioDao {
 
     void insert(Usuario usuario) throws Exception;
+    
+    void iniciarSesion(Usuario usuario) throws Exception;
 
     List<Usuario> listAll() throws Exception;
 

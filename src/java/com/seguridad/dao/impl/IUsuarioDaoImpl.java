@@ -6,6 +6,7 @@ import com.seguridad.model.Usuario;
 import com.seguridad.security.md5hash;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -39,6 +40,25 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         preparedStmt.execute();
 
         conn.close();
+    }
+
+    @Override
+    public void iniciarSesion(Usuario usuario) throws Exception {
+        Connection conn = BDconexion.conexion();
+        
+         // the mysql insert statement
+        String query = " select * from TUSUARIO where cuenta = ? and password = ?";
+
+        // create the mysql insert preparedstatement
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, usuario.getCuenta());
+        preparedStmt.setString(2, md5hash.sha1(usuario.getPassword()));
+        ResultSet resultSet = preparedStmt.getResultSet();
+        if(resultSet != null){
+            System.out.println("Inicio correcto");
+        }else{
+            System.out.println("Inicio invalido");
+        }
     }
 
     @Transactional(rollbackForClassName = "java.lang.Exception")
