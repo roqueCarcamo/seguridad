@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Usuarios</title>
     </h:head>
@@ -16,12 +17,8 @@
             </p:dock>
             <h1> Usuarios </h1>
             <div class="col-md-2">
-                <p:outputLabel value="Nombres: "/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Apellidos: "/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
+                <p:outputLabel value="Usuarios: "/>
+                <p:outputLabel value="#{loginUsuarioBean.usuario.nombres} - #{loginUsuarioBean.usuario.apellidos}"/>
             </div>
             <div class="col-md-2">
                 <p:outputLabel value="Cuenta: "/>
@@ -29,8 +26,44 @@
             </div>
             <br></br>
             <p:commandLink action="#{loginUsuarioBean.logout()}" value="Cerrar Sesion" />
-
-
+            <div class="row-fluid">
+                <div class="clearfix"/>
+                <p:dataTable  id="IdUsuarios" 
+                              value="#{consultarUsuariosBean.listaUsuarios}"
+                              var="usuario"                                 
+                              paginatorPosition="bottom"    
+                              style="width:100%" 
+                              rowIndexVar="contador"
+                              emptyMessage="No hay datos que mostrar" 
+                              rows="5"
+                              paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                              currentPageReportTemplate="Mostrando {startRecord} - {endRecord} De  {totalRecords}">                       
+                    <p:column >
+                        <f:facet name="header">
+                            <h:outputLabel value="Nombres" />
+                        </f:facet>
+                        <h:outputText class="col-sm-12" value="#{usuario.nombres}" />
+                    </p:column>
+                    <p:column >
+                        <f:facet name="header" >                           
+                            <h:outputLabel value="Apellidos" />
+                        </f:facet>
+                        <h:outputText class="col-sm-12" value="#{usuario.apellidos}" />
+                    </p:column>
+                    <p:column >
+                        <f:facet name="header" >
+                            <h:outputLabel value="Cuenta"/>
+                        </f:facet>
+                        <h:outputText styleClass="col-sm-12" value="#{usuario.cuenta}" />
+                    </p:column>
+                    <p:column >
+                        <f:facet name="header" >
+                            <h:outputLabel value="Password"/>
+                        </f:facet>
+                        <h:outputText styleClass="col-sm-12" value="#{usuario.password}" />
+                    </p:column>
+                </p:dataTable>
+            </div>
         </h:form>
     </h:body>
 </html>
