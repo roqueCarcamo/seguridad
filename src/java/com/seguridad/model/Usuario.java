@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class Usuario implements Serializable {
 
-    private int idUsuario;
+    private Integer idUsuario;
     private String nombres;
     private String apellidos;
     private String cuenta;
@@ -17,7 +17,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombres, String apellidos, String cuenta, String password) {
+    public Usuario(Integer idUsuario, String nombres, String apellidos, String cuenta, String password) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -25,11 +25,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 

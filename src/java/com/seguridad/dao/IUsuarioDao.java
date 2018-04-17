@@ -5,13 +5,13 @@ import java.util.List;
 
 /**
  *
- * @author Pedro
+ * @author Rodolfo
  */
 public interface IUsuarioDao {
 
     void insert(Usuario usuario) throws Exception;
     
-    void iniciarSesion(Usuario usuario) throws Exception;
+    Usuario iniciarSesion(Usuario usuario) throws Exception;
 
     List<Usuario> listAll() throws Exception;
 

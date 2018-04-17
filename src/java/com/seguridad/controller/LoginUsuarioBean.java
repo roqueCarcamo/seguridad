@@ -9,14 +9,16 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Rodolfo
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class LoginUsuarioBean implements Serializable {
 
     private Usuario usuario;
@@ -38,15 +40,35 @@ public class LoginUsuarioBean implements Serializable {
             Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void onIniciar(){
+
+    public String onIniciar() {
         System.out.println("Usuario: " + usuario.toString());
         try {
-            usuarioDao.iniciarSesion(usuario);
-            //usuario = new Usuario();
+            usuario = usuarioDao.iniciarSesion(usuario);
         } catch (Exception ex) {
             Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (usuario.getIdUsuario() != null) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+            session.setAttribute("usuario", usuario);
+            return "/main.xhtml?faces-redirect=true";
+        } else {
+            menssagesControl = new MenssagesControl();
+            menssagesControl.mensajeError("Usuario o Contraseña Incorrectas");
+            Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.INFO, "Inicio sesion invalido", "Inicio sesion invalido");
+            return "/login.xhtml?faces-redirect=true";
+        }
+    }
+
+    public String logout() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        if (session != null) {
+            usuario = new Usuario();
+            session.invalidate();
+        }
+        return "/login?faces-redirect=true";
     }
 
     public Usuario getUsuario() {

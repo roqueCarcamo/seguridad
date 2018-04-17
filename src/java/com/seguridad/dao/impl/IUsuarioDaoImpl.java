@@ -43,22 +43,30 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
     }
 
     @Override
-    public void iniciarSesion(Usuario usuario) throws Exception {
+    public Usuario iniciarSesion(Usuario usuario) throws Exception {
         Connection conn = BDconexion.conexion();
-        
-         // the mysql insert statement
-        String query = " select * from TUSUARIO where cuenta = ? and password = ?";
+        Usuario user = new Usuario();
+        // the mysql insert statement
+        String query = " select * from TUSUARIO where cuenta = ? and password = ? ";
 
         // create the mysql insert preparedstatement
         PreparedStatement preparedStmt = conn.prepareStatement(query);
         preparedStmt.setString(1, usuario.getCuenta());
         preparedStmt.setString(2, md5hash.sha1(usuario.getPassword()));
-        ResultSet resultSet = preparedStmt.getResultSet();
-        if(resultSet != null){
+        ResultSet resultSet = preparedStmt.executeQuery();
+        if (resultSet != null) {
             System.out.println("Inicio correcto");
-        }else{
+            while (resultSet.next()) {
+                user.setIdUsuario(resultSet.getInt("id_tusuario"));
+                user.setNombres(resultSet.getString("nombres"));
+                user.setApellidos(resultSet.getString("apellidos"));
+                user.setCuenta(resultSet.getString("cuenta"));
+            }
+        } else {
             System.out.println("Inicio invalido");
         }
+        conn.close();
+        return user;
     }
 
     @Transactional(rollbackForClassName = "java.lang.Exception")

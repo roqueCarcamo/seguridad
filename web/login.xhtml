@@ -4,19 +4,11 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registrar usuario</title>
+        <title>Iniciar sesión</title>
     </h:head>
     <h:body>
-        <h1> Registrar usuario </h1>
-        <h:form id="registrarUsuario">
-            <div class="col-md-2">
-                <p:outputLabel value="Nombres"/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Apellidos"/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
-            </div>
+        <h1> Iniciar sesión </h1>
+        <h:form id="iniciarSesion">
             <div class="col-md-2">
                 <p:outputLabel value="Cuenta"/>
                 <p:inputText value="#{loginUsuarioBean.usuario.cuenta}"/>
@@ -26,7 +18,7 @@
                 <p:password id="nonFeedback" value="#{loginUsuarioBean.usuario.password}"/>
             </div>
             <br></br>
-            <p:commandButton value="Guardar" action="#{loginUsuarioBean.onIniciar()}" update="registrarUsuario" />
+            <p:commandButton value="Iniciar sesión" action="#{loginUsuarioBean.onIniciar()}" update="iniciarSesion" />
         </h:form>
     </h:body>
 </html>

@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.Security;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bouncycastle.crypto.digests.MD5Digest;
 import org.bouncycastle.crypto.digests.SHA1Digest;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
