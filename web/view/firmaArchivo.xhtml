@@ -4,11 +4,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Bienvenido</title>
+        <title>Firmar archivo</title>
     </h:head>
     <h:body>
-        <h1> Bienvenido </h1>
-        <h:form id="formPrincipal">
+        <h:form id="formFirmaArchivo">
+            <p:dock position="top">
+                <p:menuitem value="Inicio" icon="/resources/img/home.png" url="main.xhtml"/>
+                <p:menuitem value="Usuarios" icon="/resources/img/portfolio.png" url="usuarios.xhtml"/>
+                <p:menuitem value="Archivo AES" icon="/resources/img/portfolio.png" url="archivoAES.xhtml"/>
+                <p:menuitem value="Firma archivo" icon="/resources/img/portfolio.png" url="firmaArchivo.xhtml"/>
+            </p:dock>
+            <h1> Firmar archivo </h1>
             <div class="col-md-2">
                 <p:outputLabel value="Nombres: "/>
                 <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>

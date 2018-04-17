@@ -10,23 +10,26 @@
         <h1> Registrar usuario </h1>
         <h:form id="registrarUsuario">
             <div class="col-md-2">
-                <p:outputLabel value="Nombres"/>
+                <p:outputLabel value="Nombres: "/>
                 <p:inputText value="#{registrarUsuarioBean.usuario.nombres}"/>
             </div>
             <div class="col-md-2">
-                <p:outputLabel value="Apellidos"/>
+                <p:outputLabel value="Apellidos: "/>
                 <p:inputText value="#{registrarUsuarioBean.usuario.apellidos}"/>
             </div>
             <div class="col-md-2">
-                <p:outputLabel value="Cuenta"/>
+                <p:outputLabel value="Cuenta: "/>
                 <p:inputText value="#{registrarUsuarioBean.usuario.cuenta}"/>
             </div>
             <div class="col-md-2">
-                <p:outputLabel value="Password"/>
+                <p:outputLabel value="Password: "/>
                 <p:password id="nonFeedback" value="#{registrarUsuarioBean.usuario.password}"/>
             </div>
             <br></br>
             <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario" />
+            <center>
+                <p:commandLink action="/login.xhtml?faces-redirect=true" value="Haga click aqui para autenticarse." />
+            </center>
         </h:form>
     </h:body>
 </html>

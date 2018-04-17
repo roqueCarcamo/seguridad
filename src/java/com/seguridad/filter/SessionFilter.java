@@ -137,6 +137,9 @@ public class SessionFilter implements Filter {
         if (urlStr.endsWith("/faces/login.xhtml")) {
             return true;
         }
+        if (urlStr.endsWith("/faces/registro.xhtml")) {
+            return true;
+        }
         if (urlStr.indexOf("/javax.faces.resource/") != -1) {
             return true;
         }

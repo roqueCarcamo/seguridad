@@ -42,7 +42,6 @@ public class LoginUsuarioBean implements Serializable {
     }
 
     public String onIniciar() {
-        System.out.println("Usuario: " + usuario.toString());
         try {
             usuario = usuarioDao.iniciarSesion(usuario);
         } catch (Exception ex) {
@@ -52,12 +51,12 @@ public class LoginUsuarioBean implements Serializable {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
             session.setAttribute("usuario", usuario);
-            return "/main.xhtml?faces-redirect=true";
+            return "/view/main.xhtml?faces-redirect=true";
         } else {
             menssagesControl = new MenssagesControl();
             menssagesControl.mensajeError("Usuario o Contraseña Incorrectas");
             Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.INFO, "Inicio sesion invalido", "Inicio sesion invalido");
-            return "/login.xhtml?faces-redirect=true";
+            return "";
         }
     }
 

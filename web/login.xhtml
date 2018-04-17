@@ -9,16 +9,22 @@
     <h:body>
         <h1> Iniciar sesión </h1>
         <h:form id="iniciarSesion">
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate />
+            </p:messages>
             <div class="col-md-2">
-                <p:outputLabel value="Cuenta"/>
+                <p:outputLabel value="Cuenta: "/>
                 <p:inputText value="#{loginUsuarioBean.usuario.cuenta}"/>
             </div>
             <div class="col-md-2">
-                <p:outputLabel value="Password"/>
+                <p:outputLabel value="Password: "/>
                 <p:password id="nonFeedback" value="#{loginUsuarioBean.usuario.password}"/>
             </div>
             <br></br>
             <p:commandButton value="Iniciar sesión" action="#{loginUsuarioBean.onIniciar()}" update="iniciarSesion" />
+            <center>
+                <p:commandLink action="/registro.xhtml?faces-redirect=true" value="Haga click aqui para registrarse." />
+            </center>
         </h:form>
     </h:body>
 </html>
