@@ -23,11 +23,11 @@
                     <h:panelGrid columns="2" cellpadding="5">
 
                         <p:outputLabel value="Cuenta: " for="lcuenta"/>
-                        <p:inputText value="#{loginUsuarioBean.usuario.cuenta}" id="lcuenta"/>
+                        <p:inputText value="#{loginUsuarioBean.usuario.cuenta}" id="lcuenta" autocomplete="off"/>
 
 
                         <p:outputLabel value="Password: " for="lpass"/>
-                        <p:password id="lpass" value="#{loginUsuarioBean.usuario.password}" />
+                        <p:password id="lpass" value="#{loginUsuarioBean.usuario.password}" autocomplete="off" />
 
                         <p:commandButton value="Iniciar sesión" action="#{loginUsuarioBean.onIniciar()}" update="iniciarSesion" />
                         <p:commandButton value="Registrar Usuario" type="button" onclick="PF('dlg3').show();" />

@@ -33,30 +33,28 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
     @Override
     public Usuario iniciarSesion(Usuario usuario) throws Exception {
         Usuario user;
-        try (Connection conn = BDconexion.conexion()) {
-            user = new Usuario();
-           
-            Query q = entityManager.createNativeQuery("select * from TUSUARIO where cuenta = ? and password = ? ");
-            q.setParameter(1, usuario.getCuenta());
-            q.setParameter(2, usuario.getPassword());
-            
-            Object[] userVal = (Object[]) q.getSingleResult();
-            if (userVal[0] != null) {
-                user.setIdUsuario(Integer.parseInt(userVal[0].toString()));
-            }
-            if (userVal[1] != null) {
-                user.setNombres(userVal[1].toString());
-            }
-            if (userVal[2] != null) {
-                user.setApellidos(userVal[2].toString());
-            }
-            if (userVal[3] != null) {
-                user.setCuenta(userVal[3].toString());
-            }
-            if (userVal[4] != null) {
-                user.setPassword(userVal[4].toString());
-            }
+        user = new Usuario();
+        Query q = entityManager.createNativeQuery("select * from TUSUARIO where cuenta = ? and password = ? ");
+        q.setParameter(1, usuario.getCuenta());
+        q.setParameter(2, usuario.getPassword());
+
+        Object[] userVal = (Object[]) q.getSingleResult();
+        if (userVal[0] != null) {
+            user.setIdUsuario(Integer.parseInt(userVal[0].toString()));
         }
+        if (userVal[1] != null) {
+            user.setNombres(userVal[1].toString());
+        }
+        if (userVal[2] != null) {
+            user.setApellidos(userVal[2].toString());
+        }
+        if (userVal[3] != null) {
+            user.setCuenta(userVal[3].toString());
+        }
+        if (userVal[4] != null) {
+            user.setPassword(userVal[4].toString());
+        }
+        //BDconexion.getConnection();
         return user;
     }
 

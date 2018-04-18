@@ -16,7 +16,7 @@
     
     <filter>    
         <filter-name>URLSessionFilter</filter-name>
-        <filter-class>com.seguridad.filter.SessionFilter</filter-class>
+        <filter-class>com.seguridad.filter.URLSessionFilter</filter-class>
     </filter>
 
     <filter-mapping>
