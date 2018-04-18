@@ -14,6 +14,32 @@
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     
+    <!--<context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+  
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param> -->
+    
     <filter>    
         <filter-name>URLSessionFilter</filter-name>
         <filter-class>com.seguridad.filter.URLSessionFilter</filter-class>
@@ -32,6 +58,45 @@
     <welcome-file-list>
         <welcome-file>faces/login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <error-page>
+        <!-- Missing login -->
+        <error-code>404</error-code>
+        <location>/error/401.html</location>
+    </error-page>
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/error/403.html</location>
+    </error-page>
+    <error-page>
+        <!-- Uncaught exception -->
+        <error-code>500</error-code>
+        <location>/error/500.html</location>
+    </error-page>
+    <error-page>
+        <!-- Unsupported servlet method -->
+        <error-code>503</error-code>
+        <location>/error/503.html</location>
+    </error-page>
+    
+    <filter>  
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>  
+        <filter-class>  
+            org.primefaces.webapp.filter.FileUploadFilter  
+        </filter-class>  
+     
+        <init-param>  
+            <param-name>thresholdSize</param-name>  
+            <param-value>10000</param-value>  
+        </init-param>  
+    </filter>
+    
+    <filter-mapping>  
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>  
+        <servlet-name>Faces Servlet</servlet-name>  
+    </filter-mapping> 
+    
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/faces/sesionExpirada.xhtml</location>

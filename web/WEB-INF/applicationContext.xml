@@ -19,9 +19,7 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 >
     
     <context:annotation-config/>
-    <!--<context:component-scan base-package="com.lege.consultorio" />-->
     
-   
     
     <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
         <property name="scopes">

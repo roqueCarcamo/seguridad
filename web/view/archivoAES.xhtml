@@ -3,8 +3,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 template="layout/menu.xhtml">
-    <ui:define name="content">
+    <ui:define name="content">       
+        <h:form enctype="multipart/form-data">
+            <h1>Encryp/Decryp AES</h1>
+            <p:growl id="messages" showDetail="true" />
 
-        <h1>Encryp/Decryp AES</h1>
+            <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"/>
+
+            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.upload}" disabled="true" />
+        </h:form>
     </ui:define>
 </ui:composition>
