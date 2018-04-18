@@ -38,12 +38,35 @@ public class RegistrarUsuarioBean implements Serializable {
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void onGuardar(){
-        System.out.println("Usuario: " + usuario.toString());
+
+    public void onGuardar() {
         try {
-            usuarioDao.insert(usuario);
-            usuario = new Usuario();
+            boolean valido = true;
+            StringBuilder validacion = new StringBuilder();
+            validacion.append("Los dato(s) con * son requerido(s): ");
+            if (usuario.getNombres().isEmpty()) {
+                validacion.append(" * ").append("Nombres ");
+                valido = false;
+            }
+            if (usuario.getApellidos().isEmpty()) {
+                validacion.append(" * ").append("Apellidos");
+                valido = false;
+            }
+            if (usuario.getCuenta().isEmpty()) {
+                validacion.append(" * ").append("Cuenta");
+                valido = false;
+            }
+            if (usuario.getPassword().isEmpty()) {
+                validacion.append(" * ").append("Password");
+                valido = false;
+            }
+            if (valido) {
+                usuarioDao.insert(usuario);
+                usuario = new Usuario();
+            } else {
+                menssagesControl = new MenssagesControl();
+                menssagesControl.mensajeAdvertencia(validacion.toString());
+            }
         } catch (Exception ex) {
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }

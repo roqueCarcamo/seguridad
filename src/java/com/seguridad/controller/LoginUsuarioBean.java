@@ -43,7 +43,24 @@ public class LoginUsuarioBean implements Serializable {
 
     public String onIniciar() {
         try {
-            usuario = usuarioDao.iniciarSesion(usuario);
+            boolean valido = true;
+            StringBuilder validacion = new StringBuilder();
+            validacion.append("Los dato(s) con * son requerido(s): ");
+            if (usuario.getCuenta().isEmpty()) {
+                validacion.append(" ").append("Cuenta");
+                valido = false;
+            }
+            if (usuario.getPassword().isEmpty()) {
+                validacion.append(" ").append("Password");
+                valido = false;
+            }
+            if (valido) {
+                usuario = usuarioDao.iniciarSesion(usuario);
+            } else {
+                menssagesControl = new MenssagesControl();
+                menssagesControl.mensajeAdvertencia(validacion.toString());
+                return "";
+            }
         } catch (Exception ex) {
             Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
