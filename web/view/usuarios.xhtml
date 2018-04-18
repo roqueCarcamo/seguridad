@@ -7,20 +7,26 @@
                 template="layout/menu.xhtml">
     <ui:define name="content">
 
-            <h1> Usuarios </h1>
-           
+        <h1> Usuarios </h1>
+        <h:form id="formUsuario"> 
             <div class="row-fluid">
+                <h:commandLink value="Descargar pdf">
+                    <p:graphicImage name="/resources/img/home.png" width="24"/>
+                    <i class="fa fa-file-pdf-o red"/>
+                    <p:dataExporter type="pdf" target="idUsuarios" fileName="Usuarios"/>
+                </h:commandLink>
                 <div class="clearfix"/>
-                <p:dataTable  id="IdUsuarios" 
+                <p:dataTable  id="idUsuarios" 
+                              widgetVar="idUsuarios"
                               value="#{consultarUsuariosBean.listaUsuarios}"
                               var="usuario"                                 
                               paginatorPosition="bottom"    
                               style="width:100%" 
                               rowIndexVar="contador"
                               emptyMessage="No hay datos que mostrar" 
-                              rows="5"
+                              rows="10"
                               paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                              currentPageReportTemplate="Mostrando {startRecord} - {endRecord} De  {totalRecords}">                       
+                              currentPageReportTemplate="Mostrando {startRecord} - {endRecord} de  {totalRecords}">                       
                     <p:column >
                         <f:facet name="header">
                             <h:outputLabel value="Nombres" />
@@ -48,7 +54,7 @@
                 </p:dataTable>
             </div>
 
-
+        </h:form>
 
 
     </ui:define>
