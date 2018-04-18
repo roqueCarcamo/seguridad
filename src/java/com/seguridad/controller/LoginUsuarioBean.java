@@ -2,6 +2,7 @@ package com.seguridad.controller;
 
 import com.seguridad.dao.IUsuarioDao;
 import com.seguridad.model.Usuario;
+import com.seguridad.security.md5hash;
 import com.seguridad.util.MenssagesControl;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -55,6 +56,7 @@ public class LoginUsuarioBean implements Serializable {
                 valido = false;
             }
             if (valido) {
+                usuario.setPassword(md5hash.sha1(usuario.getPassword()));
                 usuario = usuarioDao.iniciarSesion(usuario);
             } else {
                 menssagesControl = new MenssagesControl();
