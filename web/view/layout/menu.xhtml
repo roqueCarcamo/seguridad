@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html" locale="#{userSettings.locale}">
+        <h:head >
+            <f:facet name="first">
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+                <meta http-equiv="pragma" content="no-cache"/>
+                <meta http-equiv="cache-control" content="no-cache"/>
+                <meta http-equiv="expires" content="0"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:dock position="top">
+                <p:menuitem value="Inicio" icon="/resources/img/home.png" url="main.xhtml"/>
+                <p:menuitem value="Usuarios" icon="/resources/img/portfolio.png" url="usuarios.xhtml"/>
+                <p:menuitem value="Archivo AES" icon="/resources/img/portfolio.png" url="archivoAES.xhtml"/>
+                <p:menuitem value="Firma archivo" icon="/resources/img/portfolio.png" url="firmaArchivo.xhtml"/>
+            </p:dock>
+
+            <ui:insert name="content"/>
+
+            <ui:insert name="resources"/>
+        </h:body>
+    </f:view>
+</html>
