@@ -14,6 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  *
@@ -42,7 +43,7 @@ public class SessionFilter implements Filter {
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log items on the request object,
         // such as the parameters.
-	/*
+        /*
          for (Enumeration en = request.getParameterNames(); en.hasMoreElements(); ) {
          String name = (String)en.nextElement();
          String values[] = request.getParameterValues(name);
@@ -66,11 +67,11 @@ public class SessionFilter implements Filter {
             log("SessionFilter:DoAfterProcessing");
         }
 
-	// Write code here to process the request and/or response after
+        // Write code here to process the request and/or response after
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log the attributes on the
         // request object after the request has been processed. 
-	/*
+        /*
          for (Enumeration en = request.getAttributeNames(); en.hasMoreElements(); ) {
          String name = (String)en.nextElement();
          Object value = request.getAttribute(name);
@@ -79,7 +80,7 @@ public class SessionFilter implements Filter {
          }
          */
         // For example, a filter might append something to the response.
-	/*
+        /*
          PrintWriter respOut = new PrintWriter(response.getWriter());
          respOut.println("<P><B>This has been appended by an intrusive filter.</B>");
          */
@@ -122,7 +123,34 @@ public class SessionFilter implements Filter {
         }
 
         //El recurso requiere protección, pero el usuario ya está logueado.
-        chain.doFilter(request, response);
+        //chain.doFilter(request, response);
+
+        if (!(request instanceof HttpServletRequest)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+        HttpServletResponseWrapper wrappedResponse = new HttpServletResponseWrapper(httpResponse) {
+            public String encodeRedirectUrl(String url) {
+                return url;
+            }
+
+            public String encodeRedirectURL(String url) {
+                return url;
+            }
+
+            public String encodeUrl(String url) {
+                return url;
+            }
+
+            public String encodeURL(String url) {
+                return url;
+            }
+        };
+        chain.doFilter(request, wrappedResponse);
+
     }
 
     private boolean noProteger(String urlStr) {
