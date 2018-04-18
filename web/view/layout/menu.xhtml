@@ -20,10 +20,32 @@
         <h:body>
             <p:dock position="top">
                 <p:menuitem value="Inicio" icon="/resources/img/home.png" url="main.xhtml"/>
-                <p:menuitem value="Usuarios" icon="/resources/img/portfolio.png" url="usuarios.xhtml"/>
-                <p:menuitem value="Archivo AES" icon="/resources/img/portfolio.png" url="archivoAES.xhtml"/>
-                <p:menuitem value="Firma archivo" icon="/resources/img/portfolio.png" url="firmaArchivo.xhtml"/>
+                <p:menuitem value="Usuarios" icon="/resources/img/usuario2.png" url="usuarios.xhtml"/>
+                <p:menuitem value="Archivo AES" icon="/resources/img/aes2.png" url="archivoAES.xhtml"/>
+                <p:menuitem value="Firma archivo" icon="/resources/img/firma2.png" url="firmaArchivo.xhtml"/>
             </p:dock>
+
+            <h:form id="formPrincipal">
+                
+                <h2> Bienvenido </h2>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:graphicImage url="/resources/img/usuarios.png" />
+                    </f:facet>
+
+                   <p:outputLabel value="Nombres: "/>
+                    <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
+
+                   <p:outputLabel value="Apellidos: "/>
+                    <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
+                    
+                    <p:outputLabel value="Acción "/>
+                    <p:commandLink action="#{loginUsuarioBean.logout()}" value="Cerrar Sesion" />
+
+                </p:panelGrid>
+                
+     
+            </h:form>
 
             <ui:insert name="content"/>
 

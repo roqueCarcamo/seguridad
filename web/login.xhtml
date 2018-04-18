@@ -7,25 +7,72 @@
         <title>Iniciar sesión</title>
     </h:head>
     <h:body>
-        <h1> Iniciar sesión </h1>
         <h:form id="iniciarSesion">
             <p:messages id="messages" showDetail="true" closable="true">
                 <p:autoUpdate />
             </p:messages>
-            <div class="col-md-2">
-                <p:outputLabel value="Cuenta: "/>
-                <p:inputText value="#{loginUsuarioBean.usuario.cuenta}"/>
+
+            <div class="ui-g">
+                <div class="ui-g-4">
+
+                </div>
+
+                <div class="ui-g-4">
+                    <h1> Iniciar sesión </h1>
+
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <p:outputLabel value="Cuenta: " for="lcuenta"/>
+                        <p:inputText value="#{loginUsuarioBean.usuario.cuenta}" id="lcuenta"/>
+
+
+                        <p:outputLabel value="Password: " for="lpass"/>
+                        <p:password id="lpass" value="#{loginUsuarioBean.usuario.password}" />
+
+                        <p:commandButton value="Iniciar sesión" action="#{loginUsuarioBean.onIniciar()}" update="iniciarSesion" />
+                        <p:commandButton value="Registrar Usuario" type="button" onclick="PF('dlg3').show();" />
+                    </h:panelGrid>
+                </div>
+
+
+                <div class="ui-g-4">
+
+                </div>
             </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Password: "/>
-                <p:password id="nonFeedback" value="#{loginUsuarioBean.usuario.password}"/>
-            </div>
-            <br></br>
-            <p:commandButton value="Iniciar sesión" action="#{loginUsuarioBean.onIniciar()}" update="iniciarSesion" />
-            <center>
-                <p:commandLink action="/registro.xhtml?faces-redirect=true" value="Haga click aqui para registrarse." />
-            </center>
+
+
         </h:form>
+
+
+        <p:dialog header="Registrar Usuario" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="300">
+            <h:form id="registrarUsuario">
+
+                <p:messages id="rmessages" showDetail="true" closable="true" style="size: 100px">
+                    <p:autoUpdate />
+                </p:messages>
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel value="Nombres: " for="rname"/>
+                    <p:inputText value="#{registrarUsuarioBean.usuario.nombres}" id="rname"/>
+
+
+                    <p:outputLabel value="Apellidos: " for="rlastname"/>
+                    <p:inputText value="#{registrarUsuarioBean.usuario.apellidos}" id="rlastname"/>
+
+
+                    <p:outputLabel value="Cuenta: " for="rcuenta"/>
+                    <p:inputText value="#{registrarUsuarioBean.usuario.cuenta}" id="rcuenta"/>
+
+
+                    <p:outputLabel value="Password: " for="rpass"/>
+                    <p:password id="rpass" value="#{registrarUsuarioBean.usuario.password}" />
+
+                    <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario" id="guardar"/>
+                </h:panelGrid>
+            </h:form>
+
+        </p:dialog>
+
     </h:body>
 </html>
 

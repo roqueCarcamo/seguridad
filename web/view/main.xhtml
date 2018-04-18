@@ -7,23 +7,7 @@
                 template="layout/menu.xhtml">
     <ui:define name="content">
 
-        <h:form id="formPrincipal">
-            <h1> Bienvenido </h1>
-            <div class="col-md-2">
-                <p:outputLabel value="Nombres: "/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Apellidos: "/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Cuenta: "/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.cuenta}"/>
-            </div>
-            <br></br>
-            <p:commandLink action="#{loginUsuarioBean.logout()}" value="Cerrar Sesion" />
-        </h:form>
+        
 
     </ui:define>
 </ui:composition>
