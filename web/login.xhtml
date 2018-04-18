@@ -1,33 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Registrar usuario</title>
     </h:head>
     <h:body>
-        <h1> Registrar usuario </h1>
-        <h:form id="registrarUsuario">
-            <div class="col-md-2">
-                <p:outputLabel value="Nombres"/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Apellidos"/>
-                <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Cuenta"/>
-                <p:inputText value="#{loginUsuarioBean.usuario.cuenta}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Password"/>
-                <p:password id="nonFeedback" value="#{loginUsuarioBean.usuario.password}"/>
-            </div>
-            <br></br>
-            <p:commandButton value="Guardar" action="#{loginUsuarioBean.onIniciar()}" update="registrarUsuario" />
-        </h:form>
+        <b:container>
+            <b:row>
+                <b:column>
+                     <h1> Sign In </h1>
+                </b:column>
+                <b:column>
+                    <div class="col-md-6">
+                       <h:form id="registrarUsuario">
+                           <div class="col-md-12">
+                                <b:label value="Username"/>
+                                <b:inputText value="#{loginUsuarioBean.usuario.cuenta}">
+                                    <f:facet name="prepend">
+                                        <b:icon name="user" />
+                                    </f:facet>
+                                </b:inputText>
+                           </div>
+                           <div class="col-md-12">
+                               <b:label value="Password"/>
+                               <b:inputSecret id="nonFeedback" value="#{loginUsuarioBean.usuario.password}">
+                                    <f:facet name="prepend">
+                                        <b:iconAwesome name="key" />
+                                    </f:facet>
+                               </b:inputSecret>
+                           </div>
+
+                           <b:commandButton value="Guardar" action="#{loginUsuarioBean.onIniciar()}" update="registrarUsuario" />
+                       </h:form>
+                    </div>
+                </b:column>
+            </b:row>
+        </b:container>
     </h:body>
 </html>
 

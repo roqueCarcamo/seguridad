@@ -1,33 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Registrar usuario</title>
+        <title>Sign Up</title>
     </h:head>
     <h:body>
-        <h1> Registrar usuario </h1>
-        <h:form id="registrarUsuario">
-            <div class="col-md-2">
-                <p:outputLabel value="Nombres"/>
-                <p:inputText value="#{registrarUsuarioBean.usuario.nombres}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Apellidos"/>
-                <p:inputText value="#{registrarUsuarioBean.usuario.apellidos}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Cuenta"/>
-                <p:inputText value="#{registrarUsuarioBean.usuario.cuenta}"/>
-            </div>
-            <div class="col-md-2">
-                <p:outputLabel value="Password"/>
-                <p:password id="nonFeedback" value="#{registrarUsuarioBean.usuario.password}"/>
-            </div>
-            <br></br>
-            <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario" />
-        </h:form>
+        <b:container>
+            <b:row>
+                <b:column>
+                     <h1> Registrar usuario </h1>
+                </b:column>
+                <b:column>
+                    <div class="col-md-6">
+                       <h:form id="registrarUsuario">
+                            <div class="col-md-12">
+                                <b:label value="Nombres"/>
+                                <b:inputText value="#{registrarUsuarioBean.usuario.nombres}"/>
+                            </div>
+                            <div class="col-md-12">
+                                <b:label value="Apellidos"/>
+                                <b:inputText value="#{registrarUsuarioBean.usuario.apellidos}"/>
+                            </div>
+                            <div class="col-md-12">
+                                <b:label value="Cuenta"/>
+                                <b:inputText value="#{registrarUsuarioBean.usuario.cuenta}"/>
+                            </div>
+                            <div class="col-md-12">
+                                <b:label value="Password"/>
+                                <b:inputSecret id="nonFeedback" value="#{registrarUsuarioBean.usuario.password}"/>
+                            </div>
+                            <br></br>
+                            <b:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario" />
+                        </h:form>
+                    </div>
+                </b:column>
+            </b:row>
+        </b:container>
+        
+        
     </h:body>
 </html>
 
