@@ -68,6 +68,7 @@ public class RegistrarUsuarioBean implements Serializable {
                 menssagesControl.mensajeAdvertencia(validacion.toString());
             }
         } catch (Exception ex) {
+            usuario = new Usuario();
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

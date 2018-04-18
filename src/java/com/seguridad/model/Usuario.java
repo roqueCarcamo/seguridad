@@ -1,17 +1,33 @@
 package com.seguridad.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author RODOLFO
  */
+@Entity
+@Table(name = "TUSUARIO")
 public class Usuario implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tusuario")
     private Integer idUsuario;
+    @Column(name = "nombres")
     private String nombres;
+    @Column(name = "apellidos")
     private String apellidos;
+    @Column(name = "cuenta")
     private String cuenta;
+    @Column(name = "password")
     private String password;
 
     public Usuario() {
