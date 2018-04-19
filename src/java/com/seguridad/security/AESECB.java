@@ -104,7 +104,7 @@ public class AESECB {
         testAESECB256();
     }
 
-    private static void testAESECB256() throws Exception {
+    public static void testAESECB256() throws Exception {
         System.out.println("--------------AES ECB Key 256 ------------------");
         byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
         System.out.println(byteToHex(normal));
@@ -114,7 +114,7 @@ public class AESECB {
         System.out.println(byteToHex(dec));
     }
 
-    private static void testAESECB192() throws Exception {
+    public static void testAESECB192() throws Exception {
         System.out.println("--------------AES ECB Key 192 ------------------");
         byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
         System.out.println(byteToHex(normal));
@@ -124,7 +124,7 @@ public class AESECB {
         System.out.println(byteToHex(dec));
     }
 
-    private static void testAESECB128() throws Exception {
+    public static void testAESECB128() throws Exception {
         System.out.println("--------------AES ECB Key 128 ------------------");
         byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
         System.out.println(byteToHex(normal));

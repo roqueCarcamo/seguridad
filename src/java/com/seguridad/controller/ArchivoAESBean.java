@@ -5,19 +5,25 @@
  */
 package com.seguridad.controller;
 
+import com.seguridad.security.AESECB;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.UploadedFile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 /**
  *
  * @author RODOLFO
  */
+@Controller
+@Scope("session")
 @ManagedBean
-@ViewScoped
 public class ArchivoAESBean implements Serializable {
 
     private UploadedFile file;
@@ -31,6 +37,15 @@ public class ArchivoAESBean implements Serializable {
     }
 
     public void upload() {
+        try {
+            AESECB.testAESECB128();
+            System.out.println("Arhivo: " + file.getFileName());
+            System.err.println("Bytes: " + file.getInputstream().toString());
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if (file != null) {
             FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);

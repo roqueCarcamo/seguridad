@@ -3,7 +3,7 @@
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <!-- Descomentar para quitar notificaciones molestas<param-value>Production</param-value> -->
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
     
     <context-param>
@@ -68,8 +68,13 @@
     
     <error-page>
         <!-- Missing login -->
-        <error-code>404</error-code>
+        <error-code>401</error-code>
         <location>/error/401.html</location>
+    </error-page>
+    <error-page>
+        <!-- Missing login -->
+        <error-code>404</error-code>
+        <location>/error/404.html</location>
     </error-page>
     <error-page>
         <!-- Forbidden directory listing -->
