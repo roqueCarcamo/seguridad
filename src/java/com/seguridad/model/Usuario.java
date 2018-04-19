@@ -29,16 +29,22 @@ public class Usuario implements Serializable {
     private String cuenta;
     @Column(name = "password")
     private String password;
-
+    @Column(name = "keyprivate")
+    private byte[] keyprivate;
+    @Column(name = "keypublic")
+    private byte[] keypublic;
+    
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, String nombres, String apellidos, String cuenta, String password) {
+    public Usuario(Integer idUsuario, String nombres, String apellidos, String cuenta, String password, byte[] keyprivate, byte[] keypublic) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.cuenta = cuenta;
         this.password = password;
+        this.keyprivate = keyprivate;
+        this.keypublic = keypublic;
     }
 
     public Integer getIdUsuario() {
@@ -81,6 +87,22 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
+    public byte[] getKeyprivate() {
+        return keyprivate;
+    }
+
+    public void setKeyprivate(byte[] keyprivate) {
+        this.keyprivate = keyprivate;
+    }
+
+    public byte[] getKeypublic() {
+        return keypublic;
+    }
+
+    public void setKeypublic(byte[] keypublic) {
+        this.keypublic = keypublic;
+    }
+    
     @Override
     public String toString() {
         return "Usuario{" + "idUsuario=" + idUsuario + ", nombres=" + nombres + ", apellidos=" + apellidos + ", cuenta=" + cuenta + ", password=" + password + '}';

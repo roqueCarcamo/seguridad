@@ -1,6 +1,7 @@
 package com.seguridad.dao.impl;
 
 import com.seguridad.conexion.BDconexion;
+import com.seguridad.controller.LoginUsuarioBean;
 import com.seguridad.dao.IUsuarioDao;
 import com.seguridad.model.Usuario;
 import com.seguridad.security.md5hash;
@@ -8,9 +9,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -53,6 +57,27 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         }
         if (userVal[4] != null) {
             user.setPassword(userVal[4].toString());
+        }
+        //BDconexion.getConnection();
+        return user;
+    }
+    
+    @Override
+    public Usuario getKeyPrivate(Usuario usuario) throws Exception {
+        Usuario user;
+        user = new Usuario();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) context.getRequest();
+        LoginUsuarioBean loginBean = (LoginUsuarioBean) request.getSession().getAttribute("loginUsuarioBean");
+        
+        Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
+        q.setParameter(1, loginBean.getUsuario().getIdUsuario());
+        
+        Object keyPrivateVal = (Object) q.getSingleResult();
+        if (keyPrivateVal != null) {
+            
+           // user.setKeyprivate(keyPrivateVal);
+             
         }
         //BDconexion.getConnection();
         return user;

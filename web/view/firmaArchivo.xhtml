@@ -6,5 +6,12 @@
     <ui:define name="content">
 
         <h1>Firma Digital</h1>
+        <p:growl id="messages" showDetail="true" />
+        
+        <h:form id="cargarDocumento">
+            <p:fileUpload value="#{ArchivoFirmaDigitalBean.file}" mode="simple" skinSimple="true"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{ArchivoFirmaDigitalBean.upload}" disabled="false" />
+        </h:form>
+        
     </ui:define>
 </ui:composition>

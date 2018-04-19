@@ -4,6 +4,7 @@ import com.seguridad.dao.IUsuarioDao;
 import com.seguridad.model.Usuario;
 import com.seguridad.util.MenssagesControl;
 import java.io.Serializable;
+import java.security.KeyPairGenerator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -61,6 +62,13 @@ public class RegistrarUsuarioBean implements Serializable {
                 valido = false;
             }
             if (valido) {
+                
+                KeyPairGenerator kg=KeyPairGenerator.getInstance("RSA");
+                ParClaves generadorClaves = new ParClaves(kg);
+                
+                usuario.setKeyprivate(generadorClaves.clavePrivada());
+                usuario.setKeypublic(generadorClaves.clavePublica());
+                
                 usuarioDao.insert(usuario);
                 usuario = new Usuario();
             } else {
