@@ -15,40 +15,40 @@
                     <p:dataExporter type="pdf" target="idUsuarios" fileName="Usuarios"/>
                 </h:commandLink>
                 <div class="clearfix"/>
-                <p:dataTable  id="idUsuarios" 
-                              widgetVar="idUsuarios"
-                              value="#{consultarUsuariosBean.listaUsuarios}"
-                              var="usuario"                                 
-                              paginatorPosition="bottom"    
-                              style="width:100%" 
-                              rowIndexVar="contador"
-                              emptyMessage="No hay datos que mostrar" 
-                              rows="10"
-                              paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                              currentPageReportTemplate="Mostrando {startRecord} - {endRecord} de  {totalRecords}">                       
+                <p:dataTable id="idUsuarios" 
+                             widgetVar="idUsuarios"
+                             value="#{consultarUsuariosBean.listaUsuarios}"
+                             var="usuario"                                 
+                             paginatorPosition="bottom"    
+                             style="width:100%" 
+                             rowIndexVar="contador"
+                             emptyMessage="No hay datos que mostrar" 
+                             rows="10"
+                             paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="Mostrando {startRecord} - {endRecord} de  {totalRecords}">                       
                     <p:column >
                         <f:facet name="header">
                             <h:outputLabel value="Nombres" />
                         </f:facet>
-                        <h:outputText class="col-sm-12" value="#{usuario.nombres}" />
+                        <h:outputText value="#{usuario.nombres}" />
                     </p:column>
                     <p:column >
                         <f:facet name="header" >                           
                             <h:outputLabel value="Apellidos" />
                         </f:facet>
-                        <h:outputText class="col-sm-12" value="#{usuario.apellidos}" />
+                        <h:outputText value="#{usuario.apellidos}" />
                     </p:column>
                     <p:column >
                         <f:facet name="header" >
                             <h:outputLabel value="Cuenta"/>
                         </f:facet>
-                        <h:outputText styleClass="col-sm-12" value="#{usuario.cuenta}" />
+                        <h:outputText value="#{usuario.cuenta}" />
                     </p:column>
-                    <p:column >
+                    <p:column width="32%">
                         <f:facet name="header" >
                             <h:outputLabel value="Password"/>
                         </f:facet>
-                        <h:outputText styleClass="col-sm-12" value="#{usuario.password}" />
+                        <h:outputText value="#{usuario.password}" />
                     </p:column>
                 </p:dataTable>
             </div>

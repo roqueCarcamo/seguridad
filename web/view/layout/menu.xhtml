@@ -6,15 +6,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <f:view contentType="text/html" locale="#{userSettings.locale}">
+    <f:view contentType="text/html">
         <h:head >
             <f:facet name="first">
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-                <meta http-equiv="pragma" content="no-cache"/>
-                <meta http-equiv="cache-control" content="no-cache"/>
-                <meta http-equiv="expires" content="0"/>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
             </f:facet>
         </h:head>
         <h:body>
@@ -26,25 +21,25 @@
             </p:dock>
 
             <h:form id="formPrincipal">
-                
+
                 <h2> Bienvenido </h2>
                 <p:panelGrid columns="2">
                     <f:facet name="header">
                         <p:graphicImage url="/resources/img/usuarios.png" />
                     </f:facet>
 
-                   <p:outputLabel value="Nombres: "/>
+                    <p:outputLabel value="Nombres: "/>
                     <p:outputLabel value="#{loginUsuarioBean.usuario.nombres}"/>
 
-                   <p:outputLabel value="Apellidos: "/>
+                    <p:outputLabel value="Apellidos: "/>
                     <p:outputLabel value="#{loginUsuarioBean.usuario.apellidos}"/>
-                    
+
                     <p:outputLabel value="Acción "/>
                     <p:commandLink action="#{loginUsuarioBean.logout()}" value="Cerrar Sesion" />
 
                 </p:panelGrid>
-                
-     
+
+
             </h:form>
 
             <ui:insert name="content"/>

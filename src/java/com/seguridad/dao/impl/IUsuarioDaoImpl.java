@@ -34,7 +34,7 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
     public Usuario iniciarSesion(Usuario usuario) throws Exception {
         Usuario user;
         user = new Usuario();
-        Query q = entityManager.createNativeQuery("select * from TUSUARIO where cuenta = ? and password = ? ");
+        Query q = entityManager.createNativeQuery("select u.id_tusuario, u.nombres, u.apellidos, u.cuenta, u.password from TUSUARIO u where cuenta = ? and password = ? ");
         q.setParameter(1, usuario.getCuenta());
         q.setParameter(2, usuario.getPassword());
 
@@ -62,9 +62,9 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
     @Override
     public List<Usuario> listAll() throws Exception {
         List<Usuario> listaUsuarios = new ArrayList<>();
-        Query q = entityManager.createNativeQuery("select * from TUSUARIO u ");
+        Query q = entityManager.createNativeQuery("select u.id_tusuario, u.nombres, u.apellidos, u.cuenta, u.password from TUSUARIO u ");
         List<Object[]> lista = q.getResultList();
-        Usuario usuario = new Usuario();
+        Usuario usuario;
         for (int i = 0; i < lista.size(); i++) {
             Object[] usua = lista.get(i);
             usuario = new Usuario();
