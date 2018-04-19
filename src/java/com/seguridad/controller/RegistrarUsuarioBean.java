@@ -24,7 +24,7 @@ public class RegistrarUsuarioBean implements Serializable {
 
     @EJB
     private IUsuarioDao usuarioDao;
-    private MenssagesControl menssagesControl;
+    //private MenssagesControl menssagesControl;
 
     public RegistrarUsuarioBean() {
     }
@@ -34,8 +34,8 @@ public class RegistrarUsuarioBean implements Serializable {
         try {
             usuario = new Usuario();
         } catch (Exception ex) {
-            menssagesControl = new MenssagesControl();
-            menssagesControl.mensajeError("Error en el Sistema, Contacte al Administrador del Sistema.");
+            //menssagesControl = new MenssagesControl();
+            MenssagesControl.mensajeError("Error en el Sistema, Contacte al Administrador del Sistema.");
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -62,18 +62,54 @@ public class RegistrarUsuarioBean implements Serializable {
                 valido = false;
             }
             if (valido) {
+                boolean validoTamano = true;
+                StringBuilder validaTamano = new StringBuilder();
+                validacion.append("Los siguientes dato(s) exceden el tamaño máximo permitido: ");
+                if (usuario.getNombres().length() > 200) {
+                    validoTamano = false;
+                    validaTamano.append(" * ").append("Nombres ");
+                }
+                if (usuario.getApellidos().length() > 200) {
+                    validoTamano = false;
+                    validaTamano.append(" * ").append("Apellidos");
+                }
+                if (usuario.getCuenta().length() > 100) {
+                    validoTamano = false;
+                    validaTamano.append(" * ").append("Cuenta");
+                }
+
+                if (usuario.getPassword().length() > 100) {
+                    validoTamano = false;
+                    validaTamano.append(" * ").append("Password");
+                }
+
+                if (!validoTamano) {
+                    //menssagesControl = new MenssagesControl();
+                    MenssagesControl.mensajeAdvertencia(validaTamano.toString());
+                    return;
+                }
                 
-                KeyPairGenerator kg=KeyPairGenerator.getInstance("RSA");
+                boolean validarContrasena = usuario.getPassword().matches("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+
+                if(!validarContrasena){
+                    //menssagesControl = new MenssagesControl();
+                    MenssagesControl.mensajeAdvertencia("El password debe tener como minimo 8 caracteres: una letra mayuscula, una letra minucula, un número y un cáracter");
+                    return;
+                }
+                
+                KeyPairGenerator kg = KeyPairGenerator.getInstance("RSA");
                 ParClaves generadorClaves = new ParClaves(kg);
-                
+
                 usuario.setKeyprivate(generadorClaves.clavePrivada());
                 usuario.setKeypublic(generadorClaves.clavePublica());
-                
+
                 usuarioDao.insert(usuario);
                 usuario = new Usuario();
+                //menssagesControl = new MenssagesControl();
+                MenssagesControl.mensajeExito("Usuario registrado con éxito");
             } else {
-                menssagesControl = new MenssagesControl();
-                menssagesControl.mensajeAdvertencia(validacion.toString());
+                //menssagesControl = new MenssagesControl();
+                MenssagesControl.mensajeAdvertencia(validacion.toString());
             }
         } catch (Exception ex) {
             usuario = new Usuario();

@@ -14,33 +14,37 @@ import javax.servlet.ServletContext;
 public class MenssagesControl implements Serializable {
 
     private String mensaje;
-    private Properties properties;
+    private static Properties properties;
 
     public MenssagesControl() {
         cargarArchivo();
     }
 
-    public void mensajeExito(String mensaje) {
+    public static void mensajeExito(String mensaje) {
+        cargarArchivo();
         mensaje = mensaje == null ? properties.getProperty("exito") : mensaje;
         FacesUtil.getFacesContext().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, TipoMensaje.Información.toString(), mensaje));
     }
 
-    public void mensajeError(String mensaje) {
+    public static void mensajeError(String mensaje) {
+        cargarArchivo();
         mensaje = mensaje == null ? properties.getProperty("error") : mensaje;
         FacesUtil.getFacesContext().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, TipoMensaje.Error.toString(), mensaje));
     }
 
-    public void mensajeAdvertencia(String mensaje) {
+    public static void mensajeAdvertencia(String mensaje) {
+        cargarArchivo();
         mensaje = mensaje == null ? properties.getProperty("advertencia") : mensaje;
         FacesUtil.getFacesContext().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_WARN, TipoMensaje.Advertencia.toString(), mensaje));
     }
 
-    public void mensajeRequerido(String mensaje) {
+    public static void mensajeRequerido(String mensaje) {
+        cargarArchivo();
         mensaje = properties.getProperty("requerido").concat(". '").concat(mensaje).concat("'");
         FacesUtil.getFacesContext().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_WARN, TipoMensaje.Advertencia.toString(), mensaje));
     }
 
-    private void cargarArchivo() {
+    private static void cargarArchivo() {
         try {
             if (properties == null) {
                 properties = new Properties();

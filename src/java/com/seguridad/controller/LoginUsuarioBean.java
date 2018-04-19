@@ -59,6 +59,7 @@ public class LoginUsuarioBean implements Serializable {
                 usuario.setPassword(md5hash.sha1(usuario.getPassword()));
                 usuario = usuarioDao.iniciarSesion(usuario);
             } else {
+                usuario = new Usuario();
                 menssagesControl = new MenssagesControl();
                 menssagesControl.mensajeAdvertencia(validacion.toString());
                 return "";
