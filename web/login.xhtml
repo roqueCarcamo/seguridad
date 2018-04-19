@@ -51,7 +51,7 @@
                     <p:autoUpdate />
                 </p:messages>
 
-                <h:panelGrid columns="2" cellpadding="5">
+                <h:panelGrid columns="2" cellpadding="5" id="matchGrid">
                     <p:outputLabel value="Nombres: " for="rname"/>
                     <p:inputText value="#{registrarUsuarioBean.usuario.nombres}" id="rname" maxlength="200" autocomplete="off"/>
 
@@ -62,14 +62,12 @@
                     <p:outputLabel value="Cuenta: " for="rcuenta"/>
                     <p:inputText value="#{registrarUsuarioBean.usuario.cuenta}" id="rcuenta" maxlength="100" autocomplete="off"/>
 
-
-                    <h:panelGrid columns="2" id="matchGrid">                     
+                
                         <h:outputLabel for="pwd1" value="Password 1: *" />  
                         <p:password id="pwd1" value="#{registrarUsuarioBean.usuario.password}" match="pwd2" label="Password 1" required="true"/>  
 
                         <h:outputLabel for="pwd2" value="Password 2: *" />  
                         <p:password id="pwd2" value="#{registrarUsuarioBean.usuario.password}" label="Password 2" required="true"/>  
-                    </h:panelGrid>
 
                     <p:commandButton value="Guardar" action="#{registrarUsuarioBean.onGuardar()}" update="registrarUsuario registrarUsuario:rmessages" id="guardar"/>
                 </h:panelGrid>
