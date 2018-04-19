@@ -89,7 +89,7 @@ public class RegistrarUsuarioBean implements Serializable {
                     return;
                 }
                 
-                boolean validarContrasena = usuario.getPassword().matches("(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$");
+                boolean validarContrasena = usuario.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
 
                 if(!validarContrasena){
                     //menssagesControl = new MenssagesControl();
