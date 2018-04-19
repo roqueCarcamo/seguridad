@@ -1,11 +1,9 @@
 package com.seguridad.dao.impl;
 
-import com.seguridad.conexion.BDconexion;
 import com.seguridad.controller.LoginUsuarioBean;
 import com.seguridad.dao.IUsuarioDao;
 import com.seguridad.model.Usuario;
 import com.seguridad.security.md5hash;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -58,7 +56,6 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         if (userVal[4] != null) {
             user.setPassword(userVal[4].toString());
         }
-        //BDconexion.getConnection();
         return user;
     }
     
