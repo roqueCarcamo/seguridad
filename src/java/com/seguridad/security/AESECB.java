@@ -5,6 +5,7 @@
  */
 package com.seguridad.security;
 
+import java.util.Arrays;
 import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.paddings.PKCS7Padding;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
@@ -99,6 +100,19 @@ public class AESECB {
         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,};
 
     public static void main(String[] args) throws Exception {
+        
+        String letters = "1234567898765432";
+        System.out.println(letters);
+
+        // Use default charset.
+        byte[] valuesDefault = letters.getBytes();
+        // ... Use Arrays.toString to display our byte array.
+        System.out.println(Arrays.toString(valuesDefault));
+
+        // Specify US-ASCII char set directly.
+        byte[] valuesAscii = letters.getBytes("US-ASCII");
+        System.out.println(Arrays.toString(valuesAscii));
+        
         testAESECB128();
         testAESECB192();
         testAESECB256();
@@ -126,9 +140,22 @@ public class AESECB {
 
     public static void testAESECB128() throws Exception {
         System.out.println("--------------AES ECB Key 128 ------------------");
-        byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-        System.out.println(byteToHex(normal));
-        byte[] enc = AESECB.encrypt(KEY_128, normal);
+        
+        String letters = "1234567898765432";
+        System.out.println(letters);
+
+        // Use default charset.
+        byte[] valuesDefault = letters.getBytes();
+        // ... Use Arrays.toString to display our byte array.
+        System.out.println(Arrays.toString(valuesDefault));
+
+        // Specify US-ASCII char set directly.
+        byte[] valuesAscii = letters.getBytes("US-ASCII");
+        System.out.println(Arrays.toString(valuesAscii));
+        
+        //byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+        System.out.println(byteToHex(valuesDefault));
+        byte[] enc = AESECB.encrypt(KEY_128, valuesDefault);
         System.out.println(byteToHex(enc));
         byte[] dec = AESECB.decrypt(KEY_128, enc);
         System.out.println(byteToHex(dec));
