@@ -1,10 +1,16 @@
 package com.seguridad.dao.impl;
 
+import com.seguridad.conexion.BDconexion;
 import com.seguridad.controller.LoginUsuarioBean;
 import com.seguridad.dao.IUsuarioDao;
 import com.seguridad.model.Usuario;
 import com.seguridad.security.md5hash;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.faces.context.ExternalContext;
@@ -67,16 +73,54 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         HttpServletRequest request = (HttpServletRequest) context.getRequest();
         LoginUsuarioBean loginBean = (LoginUsuarioBean) request.getSession().getAttribute("loginUsuarioBean");
         
-        Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
-        q.setParameter(1, loginBean.getUsuario().getIdUsuario());
-        
-        Object keyPrivateVal = (Object) q.getSingleResult();
-        if (keyPrivateVal != null) {
-            
-           // user.setKeyprivate(keyPrivateVal);
-             
+        Connection conn = null;
+        Statement stmt = null;
+        byte[] bytes = "".getBytes();
+        conn = BDconexion.getConnection();
+
+        stmt = conn.createStatement();
+        String sql = "select keyprivate from TUSUARIO u where id_tusuario = "+loginBean.getUsuario().getIdUsuario();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            Blob blob = rs.getBlob("keyprivate");
+            bytes = blob.getBytes(1l, (int) blob.length());
+            for (int i = 0; i < bytes.length; i++) {
+                System.out.println(Arrays.toString(bytes));
+            }
+            //Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
+            //q.setParameter(1, loginBean.getUsuario().getIdUsuario());
         }
-        //BDconexion.getConnection();
+
+        user.setKeyprivate(bytes);
+        return user;
+    }
+    
+    public Usuario getKeyPublic(Usuario usuario) throws Exception {
+        Usuario user;
+        user = new Usuario();
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) context.getRequest();
+        LoginUsuarioBean loginBean = (LoginUsuarioBean) request.getSession().getAttribute("loginUsuarioBean");
+        
+        Connection conn = null;
+        Statement stmt = null;
+        byte[] bytes = "".getBytes();
+        conn = BDconexion.getConnection();
+
+        stmt = conn.createStatement();
+        String sql = "select keypublic from TUSUARIO u where id_tusuario = "+loginBean.getUsuario().getIdUsuario();
+        ResultSet rs = stmt.executeQuery(sql);
+        while (rs.next()) {
+            Blob blob = rs.getBlob("keypublic");
+            bytes = blob.getBytes(1l, (int) blob.length());
+            for (int i = 0; i < bytes.length; i++) {
+                System.out.println(Arrays.toString(bytes));
+            }
+            //Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
+            //q.setParameter(1, loginBean.getUsuario().getIdUsuario());
+        }
+
+        user.setKeypublic(bytes);
         return user;
     }
 

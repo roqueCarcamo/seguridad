@@ -10,7 +10,7 @@ import java.security.SignatureException;
 
 /**
  *
- * @author mayteEcheverry
+ * @author josueoviedo
  */
 public class FirmarDoc {
     private PrivateKey privatekey;

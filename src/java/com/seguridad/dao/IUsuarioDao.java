@@ -16,5 +16,7 @@ public interface IUsuarioDao {
     List<Usuario> listAll() throws Exception;
     
     public Usuario getKeyPrivate(Usuario usuario) throws Exception;
+    
+    public Usuario getKeyPublic(Usuario usuario) throws Exception;
 }
 
