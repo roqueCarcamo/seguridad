@@ -6,12 +6,80 @@
     <ui:define name="content">
 
         <h1>Firma Digital</h1>
-        <p:growl id="messages" showDetail="true" />
-        
-        <h:form id="cargarDocumento">
-            <p:fileUpload value="#{ArchivoFirmaDigitalBean.file}" mode="simple" skinSimple="true"/>
-            <p:commandButton value="Submit" ajax="false" actionListener="#{ArchivoFirmaDigitalBean.upload}" disabled="false" />
+
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+            <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+        </p:dialog>
+
+        <h:panelGrid columns="1" cellpadding="5">
+
+
+
+            <h:form>
+                <p:commandButton value="Download PrivateKey" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                    <p:fileDownload value="#{archivoFirmaDigitalBean.keypriv}" />
+                </p:commandButton>
+            </h:form>
+
+
+            <h:form>
+                <p:commandButton value="Download PublicKey" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                    <p:fileDownload value="#{archivoFirmaDigitalBean.keypub}" />
+                </p:commandButton>
+            </h:form>
+
+        </h:panelGrid>
+
+        <hr></hr>
+
+
+
+
+        <h:form enctype="multipart/form-data">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:tabView dynamic="true" cache="true" effect="fold">
+                <p:tab title="Encryp">
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <p:outputLabel value="Cargar Documento " />
+                        <p:fileUpload value="#{archivoFirmaDigitalBean.fileDocument}" mode="simple" skinSimple="true"/>
+
+                        <p:commandButton value="Submit" ajax="false" actionListener="#{archivoFirmaDigitalBean.uploadEncryp}" >
+                            <p:fileDownload value="#{archivoFirmaDigitalBean.documentEncryp}" />
+                        </p:commandButton>
+
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="Decryp">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <p:outputLabel value="Cargar Documento " />
+                        <p:fileUpload value="#{archivoFirmaDigitalBean.fileDocument}" mode="simple" skinSimple="true"/>
+
+                        <p:commandButton value="Submit" ajax="false" actionListener="#{archivoFirmaDigitalBean.uploadDecryp}" />
+
+                    </h:panelGrid>
+                </p:tab>
+
+            </p:tabView>
+
+
+
         </h:form>
         
+        <p:outputLabel value="#{archivoFirmaDigitalBean.decodeFirma}" />
+
+
+        <script type="text/javascript">
+            function start() {
+                PF('statusDialog').show();
+            }
+
+            function stop() {
+                PF('statusDialog').hide();
+            }
+        </script>
+
     </ui:define>
 </ui:composition>
