@@ -5,12 +5,27 @@
                 template="layout/menu.xhtml">
     <ui:define name="content">       
         <h:form enctype="multipart/form-data">
-            <h1>Encryp/Decryp AES</h1>
+            <h1>Encryp AES</h1>
             <p:growl id="messages" showDetail="true" />
-
             <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"/>
 
-            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.upload}" />
+            <p:outputLabel value="Key: *" for="idKey"/>
+            <p:inputText value="#{archivoAESBean.key}" id="idKey" maxlength="16" autocomplete="off"/>
+
+            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.upload}" >
+                <p:fileDownload value="#{archivoAESBean.fileArchivo}" />
+            </p:commandButton>
+
+            
+            <h1>Decryp AES</h1>
+            <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"/>
+
+            <p:outputLabel value="Key: *" for="idKeyV"/>
+            <p:inputText value="#{archivoAESBean.key}" id="idKeyV" maxlength="16" autocomplete="off"/>
+
+            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.uploadVerificar}" >
+                <p:fileDownload value="#{archivoAESBean.fileArchivo}" />
+            </p:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -113,7 +113,7 @@ public class AESECB {
         byte[] valuesAscii = letters.getBytes("US-ASCII");
         System.out.println(Arrays.toString(valuesAscii));
         
-        testAESECB128();
+        testAESECB128("1234567898765432", valuesDefault );
         testAESECB192();
         testAESECB256();
     }
@@ -138,11 +138,11 @@ public class AESECB {
         System.out.println(byteToHex(dec));
     }
 
-    public static void testAESECB128() throws Exception {
+    public static byte[] testAESECB128(String key, byte[] file) throws Exception {
         System.out.println("--------------AES ECB Key 128 ------------------");
         
-        String letters = "1234567898765432";
-        System.out.println(letters);
+        String letters = key;
+        System.out.println(key);
 
         // Use default charset.
         byte[] valuesDefault = letters.getBytes();
@@ -155,11 +155,37 @@ public class AESECB {
         
         //byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
         System.out.println(byteToHex(valuesDefault));
-        byte[] enc = AESECB.encrypt(KEY_128, valuesDefault);
+        byte[] enc = AESECB.encrypt(valuesDefault, file);
         System.out.println(byteToHex(enc));
-        byte[] dec = AESECB.decrypt(KEY_128, enc);
+        byte[] dec = AESECB.decrypt(valuesDefault, enc);
         System.out.println(byteToHex(dec));
+        
+        return enc;
     }
+    
+    public static byte[] descriptar(String key, byte[] file) throws Exception{
+        
+        System.out.println("--------------AES ECB Key 128 ------------------");
+        
+        String letters = key;
+        System.out.println(key);
+
+        // Use default charset.
+        byte[] valuesDefault = letters.getBytes();
+        // ... Use Arrays.toString to display our byte array.
+        System.out.println(Arrays.toString(valuesDefault));
+
+        // Specify US-ASCII char set directly.
+        byte[] valuesAscii = letters.getBytes("US-ASCII");
+        System.out.println(Arrays.toString(valuesAscii));
+        
+        //byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+        byte[] dec = AESECB.decrypt(valuesDefault, file);
+        System.out.println(byteToHex(dec));
+        
+        return dec;    
+    }
+            
 
     public static String byteToHex(byte[] data) {
         StringBuilder localStringBuilder = new StringBuilder();
