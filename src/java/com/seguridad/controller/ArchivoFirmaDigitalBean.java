@@ -40,14 +40,14 @@ import org.primefaces.model.StreamedContent;
 @ViewScoped
 public class ArchivoFirmaDigitalBean implements Serializable {
 
-    private UploadedFile fileDocument;
+    private UploadedFile fileDocument, fileDocumentDecryp, firmaDecryp;
     
     private Usuario usuario;
     private StreamedContent keypub, keypriv;
     
-    private DefaultStreamedContent documentEncryp;
+    private DefaultStreamedContent documentEncryp, documentDecryp;
     
-    private String decodeFirma = "";
+    private String verify_firma = "";
 
     @EJB
     private IUsuarioDao usuarioDao;
@@ -97,11 +97,27 @@ public class ArchivoFirmaDigitalBean implements Serializable {
     }
 
     public String getDecodeFirma() {
-        return decodeFirma;
+        return verify_firma;
     }
 
-    public void setDecodeFirma(String decodeFirma) {
-        this.decodeFirma = decodeFirma;
+    public void setDecodeFirma(String verify_firma) {
+        this.verify_firma = verify_firma;
+    }
+
+    public UploadedFile getFileDocumentDecryp() {
+        return fileDocumentDecryp;
+    }
+
+    public void setFileDocumentDecryp(UploadedFile fileDocumentDecryp) {
+        this.fileDocumentDecryp = fileDocumentDecryp;
+    }
+
+    public UploadedFile getFirmaDecryp() {
+        return firmaDecryp;
+    }
+
+    public void setFirmaDecryp(UploadedFile firmaDecryp) {
+        this.firmaDecryp = firmaDecryp;
     }
 
     
@@ -132,6 +148,51 @@ public class ArchivoFirmaDigitalBean implements Serializable {
                 
                 
                 
+            } catch (Exception e) {
+                e.printStackTrace();
+                FacesMessage messageE = new FacesMessage("Error", e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, messageE);
+            }
+            
+        }else{
+            FacesMessage message = new FacesMessage("Error", fileDocument.getFileName() + " is NOT uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+    }
+    
+    public void uploadDecryp() {
+        try {
+            System.out.println("Arhivo Doc D: " + fileDocumentDecryp.getFileName());
+            System.out.println("Bytes Doc: " + fileDocumentDecryp.getInputstream().toString());
+            System.out.println("Arhivo Firma: " + firmaDecryp.getFileName());
+            System.out.println("Bytes Firma: " + firmaDecryp.getInputstream().toString());
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (fileDocumentDecryp != null && firmaDecryp != null) {
+            FacesMessage message = new FacesMessage("Succesful", fileDocumentDecryp.getFileName() +  " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            
+            try {
+                
+                byte[] document = IOUtils.toByteArray(fileDocumentDecryp.getInputstream());
+                byte[] firma = IOUtils.toByteArray(firmaDecryp.getInputstream());
+                KeyFactory kf = KeyFactory.getInstance("RSA");
+                KeyFactory kf2 = KeyFactory.getInstance("RSA");
+                PublicKey publicKey = kf2.generatePublic(new X509EncodedKeySpec(usuario.getKeypublic()));
+                PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(usuario.getKeyprivate()));
+                
+                FirmarDoc firmarDoc = new FirmarDoc(privateKey, document);
+  
+                if (firmarDoc.verificarFirma(publicKey, document, firma)) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success!", "DOCUMENTO Y FIRMA VALIDOS"));
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Info!", "DOCUMENTO Y FIRMA INVALIDOS"));
+                }
+                  
             } catch (Exception e) {
                 e.printStackTrace();
                 FacesMessage messageE = new FacesMessage("Error", e.getMessage());

@@ -54,8 +54,11 @@
                 <p:tab title="Decryp">
                     <h:panelGrid columns="2" cellpadding="5">
 
+                        <p:outputLabel value="Cargar Firma " />
+                        <p:fileUpload value="#{archivoFirmaDigitalBean.firmaDecryp}" mode="simple" skinSimple="true"/>
+                        
                         <p:outputLabel value="Cargar Documento " />
-                        <p:fileUpload value="#{archivoFirmaDigitalBean.fileDocument}" mode="simple" skinSimple="true"/>
+                        <p:fileUpload value="#{archivoFirmaDigitalBean.fileDocumentDecryp}" mode="simple" skinSimple="true"/>
 
                         <p:commandButton value="Submit" ajax="false" actionListener="#{archivoFirmaDigitalBean.uploadDecryp}" />
 
