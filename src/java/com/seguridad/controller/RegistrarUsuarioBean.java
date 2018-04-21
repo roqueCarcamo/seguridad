@@ -24,7 +24,6 @@ public class RegistrarUsuarioBean implements Serializable {
 
     @EJB
     private IUsuarioDao usuarioDao;
-    //private MenssagesControl menssagesControl;
 
     public RegistrarUsuarioBean() {
     }
@@ -34,7 +33,6 @@ public class RegistrarUsuarioBean implements Serializable {
         try {
             usuario = new Usuario();
         } catch (Exception ex) {
-            //menssagesControl = new MenssagesControl();
             MenssagesControl.mensajeError("Error en el Sistema, Contacte al Administrador del Sistema.");
             Logger.getLogger(RegistrarUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,19 +82,22 @@ public class RegistrarUsuarioBean implements Serializable {
                 }
 
                 if (!validoTamano) {
-                    //menssagesControl = new MenssagesControl();
                     MenssagesControl.mensajeAdvertencia(validaTamano.toString());
                     return;
                 }
-                
+
+                if (usuarioDao.verificarCuenta(usuario.getCuenta())) {
+                    MenssagesControl.mensajeAdvertencia("Ya existe una cuenta registrada");
+                    return;
+                }
+
                 boolean validarContrasena = usuario.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
 
-                if(!validarContrasena){
-                    //menssagesControl = new MenssagesControl();
+                if (!validarContrasena) {
                     MenssagesControl.mensajeAdvertencia("El password debe tener como minimo 8 caracteres: una letra mayuscula, una letra minucula, un número y un cáracter");
                     return;
                 }
-                
+
                 KeyPairGenerator kg = KeyPairGenerator.getInstance("RSA");
                 ParClaves generadorClaves = new ParClaves(kg);
 
@@ -105,10 +106,8 @@ public class RegistrarUsuarioBean implements Serializable {
 
                 usuarioDao.insert(usuario);
                 usuario = new Usuario();
-                //menssagesControl = new MenssagesControl();
                 MenssagesControl.mensajeExito("Usuario registrado con éxito");
             } else {
-                //menssagesControl = new MenssagesControl();
                 MenssagesControl.mensajeAdvertencia(validacion.toString());
             }
         } catch (Exception ex) {

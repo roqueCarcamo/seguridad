@@ -64,7 +64,20 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         }
         return user;
     }
-    
+
+    @Override
+    public boolean verificarCuenta(String cuenta) throws Exception {
+        Query q = entityManager.createNativeQuery("select count(u.id_tusuario) from TUSUARIO u where cuenta = ? ");
+        q.setParameter(1, cuenta);
+
+        Object userVal = (Object) q.getSingleResult();
+        int cantidad = 0;
+        if (userVal != null) {
+            cantidad = Integer.parseInt(userVal.toString());
+        }
+        return cantidad > 0;
+    }
+
     @Override
     public Usuario getKeyPrivate(Usuario usuario) throws Exception {
         Usuario user;
@@ -72,14 +85,14 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) context.getRequest();
         LoginUsuarioBean loginBean = (LoginUsuarioBean) request.getSession().getAttribute("loginUsuarioBean");
-        
+
         Connection conn = null;
         Statement stmt = null;
         byte[] bytes = "".getBytes();
         conn = BDconexion.getConnection();
 
         stmt = conn.createStatement();
-        String sql = "select keyprivate from TUSUARIO u where id_tusuario = "+loginBean.getUsuario().getIdUsuario();
+        String sql = "select keyprivate from TUSUARIO u where id_tusuario = " + loginBean.getUsuario().getIdUsuario();
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             Blob blob = rs.getBlob("keyprivate");
@@ -94,21 +107,21 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         user.setKeyprivate(bytes);
         return user;
     }
-    
+
     public Usuario getKeyPublic(Usuario usuario) throws Exception {
         Usuario user;
         user = new Usuario();
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) context.getRequest();
         LoginUsuarioBean loginBean = (LoginUsuarioBean) request.getSession().getAttribute("loginUsuarioBean");
-        
+
         Connection conn = null;
         Statement stmt = null;
         byte[] bytes = "".getBytes();
         conn = BDconexion.getConnection();
 
         stmt = conn.createStatement();
-        String sql = "select keypublic from TUSUARIO u where id_tusuario = "+loginBean.getUsuario().getIdUsuario();
+        String sql = "select keypublic from TUSUARIO u where id_tusuario = " + loginBean.getUsuario().getIdUsuario();
         ResultSet rs = stmt.executeQuery(sql);
         while (rs.next()) {
             Blob blob = rs.getBlob("keypublic");

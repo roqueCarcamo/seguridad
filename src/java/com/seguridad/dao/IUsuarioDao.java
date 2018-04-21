@@ -12,6 +12,8 @@ public interface IUsuarioDao {
     void insert(Usuario usuario) throws Exception;
     
     Usuario iniciarSesion(Usuario usuario) throws Exception;
+    
+    boolean verificarCuenta(String cuenta) throws Exception;
 
     List<Usuario> listAll() throws Exception;
     
