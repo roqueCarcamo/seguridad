@@ -3,29 +3,88 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 template="layout/menu.xhtml">
-    <ui:define name="content">       
-        <h:form enctype="multipart/form-data">
-            <h1>Encryp AES</h1>
-            <p:growl id="messages" showDetail="true" />
-            <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"/>
+    <ui:define name="content">
+        <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                        xmlns:h="http://xmlns.jcp.org/jsf/html"
+                        xmlns:p="http://primefaces.org/ui"
+                        template="layout/menu.xhtml">
+            <ui:define name="content">
+                <h1>Archivo AES</h1>
 
-            <p:outputLabel value="Key: *" for="idKey"/>
-            <p:inputText value="#{archivoAESBean.key}" id="idKey" maxlength="16" autocomplete="off"/>
+                <hr></hr>
+                <h:form enctype="multipart/form-data">
+                    <h1>Encriptar AES</h1>
+                    <p:growl id="messages" showDetail="true" />
+                    <h:panelGrid columns="2" cellpadding="5"> 
+                        <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"
+                                      label="Cargar archivo"/>
+                        <p:outputLabel value=""/>
 
-            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.upload}" >
-                <p:fileDownload value="#{archivoAESBean.fileArchivo}" />
-            </p:commandButton>
+                        <p:outputLabel value="Llave:" for="idKey"/>
+                        <p:password value="#{archivoAESBean.key}" id="idKey" maxlength="16" autocomplete="off" required="true"/>
 
-            
-            <h1>Decryp AES</h1>
-            <p:fileUpload value="#{archivoAESBean.file}" mode="simple" skinSimple="true"/>
+                        <p:commandButton value="Encriptar" ajax="false" actionListener="#{archivoAESBean.upload}" >
+                            <p:fileDownload value="#{archivoAESBean.fileArchivo}" />
+                        </p:commandButton>
 
-            <p:outputLabel value="Key: *" for="idKeyV"/>
-            <p:inputText value="#{archivoAESBean.key}" id="idKeyV" maxlength="16" autocomplete="off"/>
+                    </h:panelGrid>
 
-            <p:commandButton value="Submit" ajax="false" actionListener="#{archivoAESBean.uploadVerificar}" >
-                <p:fileDownload value="#{archivoAESBean.fileArchivo}" />
-            </p:commandButton>
-        </h:form>
+                </h:form>
+                <h:form id="FormDes" enctype="multipart/form-data"> 
+                    <h1>Desencriptar AES</h1>
+                    <h:panelGrid columns="2" cellpadding="5"> 
+                        <p:fileUpload value="#{archivoAESBean.fileEncriptado}" mode="simple" skinSimple="true"
+                                      label="Cargar archivo"/>
+                        <p:outputLabel value=""/>
+
+                        <p:outputLabel value="Llave:" for="idKeyV"/>
+                        <p:password value="#{archivoAESBean.keyDesencriptar}" id="idKeyV" maxlength="16" autocomplete="off" required="true"/>
+
+                        <p:commandButton value="Desencriptar" ajax="false" actionListener="#{archivoAESBean.uploadVerificar}" 
+                                         update="FormDes:IdArchivo">
+                        </p:commandButton>
+
+                        <h:form> 
+                            <p:commandButton id="IdArchivo" value="Archivo desencriptado" ajax="false" 
+                                             onclick="PrimeFaces.monitorDownload(start, stop);"
+                                             disabled="#{archivoAESBean.validarDesencriptacion}" 
+                                             actionListener="#{archivoAESBean.descargarArchivoDesencriptado}">
+                                <p:fileDownload value="#{archivoAESBean.fileArchivoDescriptado}" />
+                            </p:commandButton>
+                        </h:form>
+
+                    </h:panelGrid>
+                </h:form>
+                <script type="text/javascript">
+                    function start() {
+                        PF('statusDialog').show();
+                    }
+
+                    function stop() {
+                        PF('statusDialog').hide();
+                    }
+                </script>
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+
+
+        <script type="text/javascript">
+            function start() {
+                PF('statusDialog').show();
+            }
+
+            function stop() {
+                PF('statusDialog').hide();
+            }
+        </script>
+        <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">
+            <p:graphicImage name="/resources/img/cargando.gif" />
+        </p:dialog>
+
     </ui:define>
 </ui:composition>

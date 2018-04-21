@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.seguridad.security;
 
 import java.util.Arrays;
@@ -11,50 +6,12 @@ import org.bouncycastle.crypto.paddings.PKCS7Padding;
 import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
 import org.bouncycastle.crypto.params.KeyParameter;
 
-/**
- * @version 1.0 Clase que contiene los métodos públicos encrypt y descrypt,
- * cuyos objetivos son encriptar y desencriptar respectivamente, utilizando el
- * algoritmo AES en modo Modo ECB (Electronic codebook) soportando claves de
- * 128/192/256 bits Requiere la librería Bouncy Castle
- * @see <a href="https://www.bouncycastle.org/latest_releases.html">Bouncy
- * Castle</a>
- * @see
- * <a href="http://es.wikipedia.org/wiki/Advanced_Encryption_Standard">WikiES:
- * Advanced Encryption Standard</a>
- * @see <a href="http://es.wikipedia.org/wiki/Criptograf%C3%ADa">WikiES:
- * Criptografía</a>
- * @see
- * <a href="https://es.wikipedia.org/wiki/Modos_de_operaci%C3%B3n_de_una_unidad_de_cifrado_por_bloques#Modo_ECB_.28Electronic_codebook.29">WikiES:
- * Modo ECB (Electronic codebook)</a>
- * @see <a href="http://www.linkedin.com/in/juliofcv">Julio Chinchilla</a>
- * @author Julio Chinchilla
- */
 public class AESECB {
 
-    /**
-     * Función de tipo arreglo de bytes que recibe una llave (key) y un arreglo
-     * de bytes (input) el cual se desea encriptar
-     *
-     * @param key recibe únicamente claves de 128/192/256 bits
-     * @param input arreglo de bytes a cifrar
-     * @return el texto cifrado en modo String
-     * @throws Exception puede devolver excepciones de los siguientes tipos:
-     * DataLengthException, InvalidCipherTextException
-     */
     public static byte[] encrypt(byte[] key, byte[] input) throws Exception {
         return processing(key, input, true);
     }
 
-    /**
-     * Función de tipo arreglo de bytes que recibe una llave (key) y un arreglo
-     * de bytes (input) el cual se desea desencriptar
-     *
-     * @param key recibe únicamente claves de 128/192/256 bits
-     * @param input arreglo de bytes a descifrar
-     * @return el texto cifrado en modo String
-     * @throws Exception puede devolver excepciones de los siguientes tipos:
-     * DataLengthException, InvalidCipherTextException
-     */
     public static byte[] decrypt(byte[] key, byte[] input) throws Exception {
         byte res1[] = processing(key, input, false);
         int i = res1.length - 1;
@@ -66,15 +23,6 @@ public class AESECB {
         return res0;
     }
 
-    /**
-     * Clase interna de procesamiento que utiliza el API de Bouncy Castle
-     *
-     * @param key recibe únicamente claves de 128/192/256 bits
-     * @param input arreglo de bytes a codificar
-     * @param encrypt true para encriptar y false para desencriptar
-     * @return
-     * @throws Exception
-     */
     private static byte[] processing(byte[] key, byte[] input, boolean encrypt) throws Exception {
         PaddedBufferedBlockCipher pbbc = new PaddedBufferedBlockCipher(new AESEngine(), new PKCS7Padding());
         pbbc.init(encrypt, new KeyParameter(key));
@@ -102,73 +50,72 @@ public class AESECB {
     public static void main(String[] args) throws Exception {
         
         String letters = "1234567898765432";
-        System.out.println(letters);
+        //System.out.println(letters);
 
         // Use default charset.
         byte[] valuesDefault = letters.getBytes();
         // ... Use Arrays.toString to display our byte array.
-        System.out.println(Arrays.toString(valuesDefault));
+        //System.out.println(Arrays.toString(valuesDefault));
 
         // Specify US-ASCII char set directly.
-        byte[] valuesAscii = letters.getBytes("US-ASCII");
-        System.out.println(Arrays.toString(valuesAscii));
+        //byte[] valuesAscii = letters.getBytes("US-ASCII");
+        //System.out.println(Arrays.toString(valuesAscii));
         
-        testAESECB128("1234567898765432", valuesDefault );
+        encriptar("1234567898765432", valuesDefault );
         testAESECB192();
         testAESECB256();
     }
 
     public static void testAESECB256() throws Exception {
-        System.out.println("--------------AES ECB Key 256 ------------------");
+        //System.out.println("--------------AES ECB Key 256 ------------------");
         byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-        System.out.println(byteToHex(normal));
+        //System.out.println(byteToHex(normal));
         byte[] enc = AESECB.encrypt(KEY_256, normal);
-        System.out.println(byteToHex(enc));
+        //System.out.println(byteToHex(enc));
         byte[] dec = AESECB.decrypt(KEY_256, enc);
-        System.out.println(byteToHex(dec));
+        //System.out.println(byteToHex(dec));
     }
 
     public static void testAESECB192() throws Exception {
-        System.out.println("--------------AES ECB Key 192 ------------------");
+        //System.out.println("--------------AES ECB Key 192 ------------------");
         byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-        System.out.println(byteToHex(normal));
+        //System.out.println(byteToHex(normal));
         byte[] enc = AESECB.encrypt(KEY_192, normal);
-        System.out.println(byteToHex(enc));
+        //System.out.println(byteToHex(enc));
         byte[] dec = AESECB.decrypt(KEY_192, enc);
-        System.out.println(byteToHex(dec));
+        //System.out.println(byteToHex(dec));
     }
 
-    public static byte[] testAESECB128(String key, byte[] file) throws Exception {
-        System.out.println("--------------AES ECB Key 128 ------------------");
+    public static byte[] encriptar(String key, byte[] file) throws Exception {
+        //System.out.println("--------------AES ECB Key 128 ------------------");
         
         String letters = key;
-        System.out.println(key);
+        //System.out.println(key);
 
         // Use default charset.
         byte[] valuesDefault = letters.getBytes();
         // ... Use Arrays.toString to display our byte array.
-        System.out.println(Arrays.toString(valuesDefault));
+        //System.out.println(Arrays.toString(valuesDefault));
 
         // Specify US-ASCII char set directly.
-        byte[] valuesAscii = letters.getBytes("US-ASCII");
-        System.out.println(Arrays.toString(valuesAscii));
+        //byte[] valuesAscii = letters.getBytes("US-ASCII");
+        //System.out.println(Arrays.toString(valuesAscii));
         
         //byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-        System.out.println(byteToHex(valuesDefault));
+        //System.out.println(byteToHex(valuesDefault));
         byte[] enc = AESECB.encrypt(valuesDefault, file);
-        System.out.println(byteToHex(enc));
-        byte[] dec = AESECB.decrypt(valuesDefault, enc);
-        System.out.println(byteToHex(dec));
-        
+        //System.out.println(byteToHex(enc));
+        //System.out.println(byteToHex(dec));
+       
         return enc;
     }
     
     public static byte[] descriptar(String key, byte[] file) throws Exception{
         
-        System.out.println("--------------AES ECB Key 128 ------------------");
+        //System.out.println("--------------AES ECB Key 128 ------------------");
         
         String letters = key;
-        System.out.println(key);
+        //System.out.println(key);
 
         // Use default charset.
         byte[] valuesDefault = letters.getBytes();
@@ -176,12 +123,12 @@ public class AESECB {
         System.out.println(Arrays.toString(valuesDefault));
 
         // Specify US-ASCII char set directly.
-        byte[] valuesAscii = letters.getBytes("US-ASCII");
-        System.out.println(Arrays.toString(valuesAscii));
+        //byte[] valuesAscii = letters.getBytes("US-ASCII");
+        //System.out.println(Arrays.toString(valuesAscii));
         
         //byte[] normal = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
         byte[] dec = AESECB.decrypt(valuesDefault, file);
-        System.out.println(byteToHex(dec));
+        //System.out.println(byteToHex(dec));
         
         return dec;    
     }

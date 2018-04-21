@@ -84,9 +84,9 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         while (rs.next()) {
             Blob blob = rs.getBlob("keyprivate");
             bytes = blob.getBytes(1l, (int) blob.length());
-            for (int i = 0; i < bytes.length; i++) {
-                System.out.println(Arrays.toString(bytes));
-            }
+//            for (int i = 0; i < bytes.length; i++) {
+//                System.out.println(Arrays.toString(bytes));
+//            }
             //Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
             //q.setParameter(1, loginBean.getUsuario().getIdUsuario());
         }
@@ -113,9 +113,9 @@ public class IUsuarioDaoImpl implements IUsuarioDao {
         while (rs.next()) {
             Blob blob = rs.getBlob("keypublic");
             bytes = blob.getBytes(1l, (int) blob.length());
-            for (int i = 0; i < bytes.length; i++) {
-                System.out.println(Arrays.toString(bytes));
-            }
+//            for (int i = 0; i < bytes.length; i++) {
+//                System.out.println(Arrays.toString(bytes));
+//            }
             //Query q = entityManager.createNativeQuery("select keyprivate from TUSUARIO u where keyprivate = ?");
             //q.setParameter(1, loginBean.getUsuario().getIdUsuario());
         }

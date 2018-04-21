@@ -8,12 +8,14 @@
     <ui:define name="content">
 
         <h1> Usuarios </h1>
+        <hr></hr>
         <h:form id="formUsuario"> 
             <div class="row-fluid">
                 <h:commandLink value="Descargar pdf">                    
                     <i class="fa fa-file-pdf-o red"/>
                     <p:dataExporter type="pdf" target="idUsuarios" fileName="Usuarios"/>
                 </h:commandLink>
+                <hr></hr>
                 <div class="clearfix"/>
                 <p:dataTable id="idUsuarios" 
                              widgetVar="idUsuarios"

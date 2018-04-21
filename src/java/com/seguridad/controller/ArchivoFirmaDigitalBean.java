@@ -62,7 +62,7 @@ public class ArchivoFirmaDigitalBean implements Serializable {
             publicKeyForView();
             
         } catch (Exception ex) {
-            menssagesControl = new MenssagesControl();
+            //menssagesControl = new MenssagesControl();
             menssagesControl.mensajeError("Error en el Sistema, Contacte al Administrador del Sistema.");
             Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,14 +123,14 @@ public class ArchivoFirmaDigitalBean implements Serializable {
     
     
     public void uploadEncryp() {
-        try {
-            System.out.println("Arhivo D: " + fileDocument.getFileName());
-            System.out.println("Bytes D: " + fileDocument.getInputstream().toString());
-        } catch (IOException ex) {
-            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            System.out.println("Arhivo D: " + fileDocument.getFileName());
+//            System.out.println("Bytes D: " + fileDocument.getInputstream().toString());
+//        } catch (IOException ex) {
+//            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         if (fileDocument != null) {
             FacesMessage message = new FacesMessage("Succesful", fileDocument.getFileName() +  " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -149,7 +149,7 @@ public class ArchivoFirmaDigitalBean implements Serializable {
                 
                 
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.getLogger(ArchivoFirmaDigitalBean.class.getName()).log(Level.SEVERE, null, e);
                 FacesMessage messageE = new FacesMessage("Error", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, messageE);
             }
@@ -161,17 +161,17 @@ public class ArchivoFirmaDigitalBean implements Serializable {
     }
     
     public void uploadDecryp() {
-        try {
-            System.out.println("Arhivo Doc D: " + fileDocumentDecryp.getFileName());
-            System.out.println("Bytes Doc: " + fileDocumentDecryp.getInputstream().toString());
-            System.out.println("Arhivo Firma: " + firmaDecryp.getFileName());
-            System.out.println("Bytes Firma: " + firmaDecryp.getInputstream().toString());
-            
-        } catch (IOException ex) {
-            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            System.out.println("Arhivo Doc D: " + fileDocumentDecryp.getFileName());
+//            System.out.println("Bytes Doc: " + fileDocumentDecryp.getInputstream().toString());
+//            System.out.println("Arhivo Firma: " + firmaDecryp.getFileName());
+//            System.out.println("Bytes Firma: " + firmaDecryp.getInputstream().toString());
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(ArchivoAESBean.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         if (fileDocumentDecryp != null && firmaDecryp != null) {
             FacesMessage message = new FacesMessage("Succesful", fileDocumentDecryp.getFileName() +  " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -194,7 +194,7 @@ public class ArchivoFirmaDigitalBean implements Serializable {
                 }
                   
             } catch (Exception e) {
-                e.printStackTrace();
+                Logger.getLogger(LoginUsuarioBean.class.getName()).log(Level.SEVERE, null, e);
                 FacesMessage messageE = new FacesMessage("Error", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, messageE);
             }
@@ -208,7 +208,7 @@ public class ArchivoFirmaDigitalBean implements Serializable {
     public void privateKeyForView() throws Exception{
         Usuario user = usuarioDao.getKeyPrivate(usuario);
         usuario.setKeyprivate(user.getKeyprivate());
-        System.out.println(user.getKeyprivate());
+        //System.out.println(user.getKeyprivate());
         //ByteArrayInputStream in = new ByteArrayInputStream(usuario.getKeyprivate());
         //ObjectInputStream is = new ObjectInputStream(in);
         //KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -220,7 +220,7 @@ public class ArchivoFirmaDigitalBean implements Serializable {
     public void publicKeyForView() throws Exception{
         Usuario user = usuarioDao.getKeyPublic(usuario);
         usuario.setKeypublic(user.getKeypublic());
-        System.out.println(user.getKeypublic());
+        //System.out.println(user.getKeypublic());
         //ByteArrayInputStream in = new ByteArrayInputStream(usuario.getKeyprivate());
         //ObjectInputStream is = new ObjectInputStream(in);
         //KeyFactory kf = KeyFactory.getInstance("RSA");

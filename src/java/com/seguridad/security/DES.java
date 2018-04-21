@@ -1,10 +1,11 @@
 package com.seguridad.security;
 
 import java.security.Security;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.util.encoders.*;
 
 /**
  *
@@ -30,14 +31,12 @@ public class DES {
             0x14, 0x15, 0x16};
 
         //show the input to the screen
-        System.out.println("Input: "
-                + new String(Hex.encode(input)));
+        //System.out.println("Input: " + new String(Hex.encode(input)));
 
         SecretKeySpec key = new SecretKeySpec(
                 EncryptionKey, "DES");
 
-        System.out.println("Key: "
-                + new String(Hex.encode(EncryptionKey)));
+        //System.out.println("Key: " + new String(Hex.encode(EncryptionKey)));
 
         try {
 
@@ -57,8 +56,7 @@ public class DES {
             ctLength += cipher.doFinal(cipherText, ctLength);
 
             //show the encrypted text to the screen
-            System.out.println("Encrypted Input: "
-                    + new String(Hex.encode(cipherText)));
+            //System.out.println("Encrypted Input: " + new String(Hex.encode(cipherText)));
 
             //decrypt it back
             cipher.init(Cipher.DECRYPT_MODE,
@@ -73,10 +71,9 @@ public class DES {
                     ctLength);
 
             //show the decrypted text to the screen
-            System.out.println("Decrypted Input: "
-                    + new String(Hex.encode(decryptedText)));
+            //System.out.println("Decrypted Input: "+ new String(Hex.encode(decryptedText)));
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.getLogger(DES.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }

@@ -37,11 +37,9 @@ public class md5hash {
         md5.doFinal(digest, 0);
 
         //show the input and output
-        System.out.println("Entry message: " + entry);
-        System.out.println("Input (hex): "
-                + new String(Hex.encode(input)));
-        System.out.println("Output (hex): "
-                + new String(Hex.encode(digest)));
+        //System.out.println("Entry message: " + entry);
+        //System.out.println("Input (hex): "+ new String(Hex.encode(input)));
+        //System.out.println("Output (hex): "+ new String(Hex.encode(digest)));
     }
 
     public static String sha1(String texto) {
@@ -68,13 +66,11 @@ public class md5hash {
         md5.doFinal(digest, 0);
 
         //show the input and output
-        System.out.println("Entry message: " + entry);
+        //System.out.println("Entry message: " + entry);
 
-        System.out.println("Input (hex): "
-                + new String(Hex.encode(input)));
+        //System.out.println("Input (hex): "+ new String(Hex.encode(input)));
         textoCifrado = new String(Hex.encode(digest));
-        System.out.println("Output (hex): "
-                + textoCifrado);
+        //System.out.println("Output (hex): "+ textoCifrado);
 
         return textoCifrado;
 
